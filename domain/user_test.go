@@ -23,39 +23,41 @@ func buildDisplayName(firstName, lastName string) string {
 }
 
 func buildUser() User {
-	return User{
-		FirstName:   firstName,
-		LastName:    lastName,
-		DisplayName: displayName,
-		Email:       email,
-		Age:         age,
-	}
+	user := User{}
+
+	user.setFirstName(firstName)
+	user.setLastName(lastName)
+	user.setDisplayName(displayName)
+	user.setEmail(email)
+	user.setAge(age)
+
+	return user
 }
 
 func TestUserStruct(t *testing.T) {
 	user := buildUser()
 
-	if user.FirstName == "" {
+	if user.getFirstName() == "" {
 		t.Errorf("First name is required")
 	}
 
-	if user.LastName == "" {
+	if user.getLastName() == "" {
 		t.Errorf("Last name is required")
 	}
 
-	if user.DisplayName == "" {
+	if user.getDisplayName() == "" {
 		t.Errorf("Display name is required")
 	}
 
-	if user.Email == "" {
+	if user.getEmail() == "" {
 		t.Errorf("Email is required")
 	}
 
-	if !strings.Contains(user.Email, "@mail.com") {
+	if !strings.Contains(user.getEmail(), "@mail.com") {
 		t.Errorf("Email should be valid")
 	}
 
-	if user.Age < 0 {
+	if user.getAge() < 0 {
 		t.Errorf("Age must be a valid integer")
 	}
 

@@ -26,7 +26,7 @@ func buildUser() User {
 	return User{
 		FirstName:   firstName,
 		LastName:    lastName,
-		DisplayName: buildDisplayName(firstName, lastName),
+		DisplayName: displayName,
 		Email:       email,
 		Age:         age,
 	}

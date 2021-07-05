@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 )
@@ -60,6 +59,4 @@ func TestUserStruct(t *testing.T) {
 	if user.getAge() < 0 {
 		t.Errorf("Age must be a valid integer")
 	}
-
-	fmt.Print(user)
 }

@@ -7,28 +7,17 @@ import (
 
 var firstName string = "Test"
 var lastName string = "User"
-var displayName string = buildDisplayName(firstName, lastName)
 var email string = "test@mail.com"
 var age = 21
-
-func buildDisplayName(firstName, lastName string) string {
-	builder := strings.Builder{}
-
-	builder.WriteString(firstName)
-	builder.WriteString(" ")
-	builder.WriteString(lastName)
-
-	return builder.String()
-}
 
 func buildUser() User {
 	user := User{}
 
-	user.setFirstName(firstName)
-	user.setLastName(lastName)
-	user.setDisplayName(displayName)
-	user.setEmail(email)
-	user.setAge(age)
+	user.SetFirstName(firstName)
+	user.SetLastName(lastName)
+	user.SetDisplayName(firstName, lastName)
+	user.SetEmail(email)
+	user.SetAge(age)
 
 	return user
 }
@@ -36,27 +25,27 @@ func buildUser() User {
 func TestUserStruct(t *testing.T) {
 	user := buildUser()
 
-	if user.getFirstName() == "" {
+	if user.GetFirstName() == "" {
 		t.Errorf("First name is required")
 	}
 
-	if user.getLastName() == "" {
+	if user.GetLastName() == "" {
 		t.Errorf("Last name is required")
 	}
 
-	if user.getDisplayName() == "" {
+	if user.GetDisplayName() == "" {
 		t.Errorf("Display name is required")
 	}
 
-	if user.getEmail() == "" {
+	if user.GetEmail() == "" {
 		t.Errorf("Email is required")
 	}
 
-	if !strings.Contains(user.getEmail(), "@mail.com") {
+	if !strings.Contains(user.GetEmail(), "@mail.com") {
 		t.Errorf("Email should be valid")
 	}
 
-	if user.getAge() < 0 {
+	if user.GetAge() < 0 {
 		t.Errorf("Age must be a valid integer")
 	}
 }

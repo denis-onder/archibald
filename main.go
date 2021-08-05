@@ -11,6 +11,7 @@ func init() {
 	if err := godotenv.Load(); err != nil {
 		log.Printf("No environmental variable (.env) file found.")
 	}
+	connectToDatabase()
 }
 
 func main() {

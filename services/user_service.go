@@ -14,3 +14,12 @@ func CreateUser(firstName, lastName, email string, age int) (error, User) {
 
 	return isValid, user
 }
+
+func GetUser(id int) User {
+}
+
+func UpdateUser(id int, updateUserObject User) bool {
+}
+
+func DeleteUser(id int) bool {
+}

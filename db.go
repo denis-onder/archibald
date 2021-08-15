@@ -69,6 +69,6 @@ func connectToDatabase() {
 		log.Fatal(err)
 	} else {
 		Database = db
-		fmt.Printf("Database connection established!\n%s", connString)
+		fmt.Printf("Database connection established!\n%s\n", connString)
 	}
 }

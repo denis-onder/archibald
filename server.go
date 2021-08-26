@@ -8,13 +8,19 @@ import (
 	"time"
 )
 
-func welcome(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Welcome!")
+func welcome() http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, "Welcome!")
+	})
 }
 
-func logger(w http.ResponseWriter, r *http.Request) {
+func logger(h http.Handler) http.Handler {
 	// Method, endpoint and timestamp
-	fmt.Printf("=> [%s] %s @%s\n", r.Method, r.URL.Host, time.Now().Unix())
+	logFunc := func(w http.ResponseWriter, r *http.Request) {
+		fmt.Printf("\n=> [%s] %s @%d\n", r.Method, r.URL.Path, time.Now().Unix())
+	}
+
+	return http.HandlerFunc(logFunc)
 }
 
 func serve() {
@@ -23,8 +29,7 @@ func serve() {
 	fmt.Printf("Archibald service running\nhttp://localhost%s/welcome", port)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", logger)
-	mux.HandleFunc("/welcome", welcome)
+	mux.Handle("/welcome", logger(welcome()))
 
 	http.ListenAndServe(port, mux)
 }

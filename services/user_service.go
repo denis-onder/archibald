@@ -2,6 +2,7 @@ package services
 
 import (
 	. "github.com/denis-onder/archibald/builders"
+	. "github.com/denis-onder/archibald/db"
 	. "github.com/denis-onder/archibald/domain"
 	. "github.com/denis-onder/archibald/validators"
 )
@@ -14,10 +15,14 @@ type UserServiceType struct {
 }
 
 func CreateUser(firstName, lastName, email string, age int) (error, User) {
-	user := UserBuilder(firstName, firstName, email, age)
+	user := UserBuilder(firstName, lastName, email, age)
 	isValid := ValidateUser(user)
 
 	// TODO: Insert the user in the database if valid
+
+	if isValid == nil {
+		statement := `INSERT INTO users ("firstName", "lastName", "email", "age") VALUES ($1, $2, $3, $4)`
+	}
 
 	return isValid, user
 }

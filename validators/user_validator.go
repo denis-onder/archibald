@@ -28,9 +28,5 @@ func ValidateUser(u User) error {
 		return errors.New("Please provide a valid email address")
 	}
 
-	if u.GetAge() < 0 {
-		return errors.New("Age must be a positive number")
-	}
-
 	return nil
 }

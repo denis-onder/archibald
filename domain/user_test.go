@@ -9,7 +9,7 @@ var id int = 0
 var firstName string = "Test"
 var lastName string = "User"
 var email string = "test@mail.com"
-var age = 21
+var password string = "1234567890"
 
 func buildUser() User {
 	user := User{}
@@ -19,7 +19,7 @@ func buildUser() User {
 	user.SetLastName(lastName)
 	user.SetDisplayName(firstName, lastName)
 	user.SetEmail(email)
-	user.SetAge(age)
+	user.SetPassword(password)
 
 	return user
 }
@@ -51,7 +51,7 @@ func TestUserStruct(t *testing.T) {
 		t.Errorf("Email should be valid")
 	}
 
-	if user.GetAge() < 0 {
-		t.Errorf("Age must be a valid integer")
+	if user.GetPassword() == "" {
+		t.Errorf("Password is required")
 	}
 }

@@ -8,8 +8,8 @@ func TestUserBuilder(t *testing.T) {
 	firstName := "Test"
 	lastName := "User"
 	email := "test@user.com"
-	age := 20
-	user := UserBuilder(firstName, lastName, email, age)
+	password := "1234567890"
+	user := UserBuilder(firstName, lastName, email, password)
 
 	if user.GetFirstName() != firstName {
 		t.Errorf("Invalid first name")
@@ -27,7 +27,11 @@ func TestUserBuilder(t *testing.T) {
 		t.Errorf("Invalid email address")
 	}
 
-	if user.GetAge() != age {
-		t.Errorf("Invalid age")
+	if user.GetPassword() == "" {
+		t.Errorf("A password is required")
+	}
+
+	if user.GetPassword() == password {
+		t.Errorf("The password is not encrypted")
 	}
 }

@@ -8,7 +8,6 @@ type User struct {
 	lastName    string
 	displayName string
 	email       string
-	age         int
 	password    string
 }
 
@@ -43,10 +42,6 @@ func (u User) GetEmail() string {
 	return u.email
 }
 
-func (u User) GetAge() int {
-	return u.age
-}
-
 func (u User) GetPassword() string {
 	return u.password
 }
@@ -70,10 +65,6 @@ func (u *User) SetDisplayName(firstName, lastName string) {
 
 func (u *User) SetEmail(email string) {
 	u.email = email
-}
-
-func (u *User) SetAge(age int) {
-	u.age = age
 }
 
 func (u *User) SetPassword(password string) {

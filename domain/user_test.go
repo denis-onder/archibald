@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+var id int = 0
 var firstName string = "Test"
 var lastName string = "User"
 var email string = "test@mail.com"
@@ -13,6 +14,7 @@ var age = 21
 func buildUser() User {
 	user := User{}
 
+	user.SetId(id)
 	user.SetFirstName(firstName)
 	user.SetLastName(lastName)
 	user.SetDisplayName(firstName, lastName)
@@ -24,6 +26,10 @@ func buildUser() User {
 
 func TestUserStruct(t *testing.T) {
 	user := buildUser()
+
+	if user.GetId() < 0 {
+		t.Errorf("An ID is required")
+	}
 
 	if user.GetFirstName() == "" {
 		t.Errorf("First name is required")

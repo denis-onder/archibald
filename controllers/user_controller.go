@@ -16,10 +16,19 @@ func CreateUser(firstName, lastName, email string, age int) User {
 }
 
 func GetUser(id int) User {
+	err, user := UserService.GetUser(id)
+
+	if err != nil {
+		// Handle error
+	}
+
+	return user
 }
 
 func UpdateUser(user User) bool {
+	//
 }
 
-func DeleteUser(user User) bool {
+func DeleteUser(id int) bool {
+	return UserService.DeleteUser(id)
 }

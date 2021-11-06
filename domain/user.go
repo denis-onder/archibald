@@ -3,11 +3,13 @@ package domain
 import "strings"
 
 type User struct {
+	id          int
 	firstName   string
 	lastName    string
 	displayName string
 	email       string
 	age         int
+	password    string
 }
 
 func buildDisplayName(firstName, lastName string) string {
@@ -21,6 +23,10 @@ func buildDisplayName(firstName, lastName string) string {
 }
 
 // Getters
+func (u User) GetId() int {
+	return u.id
+}
+
 func (u User) GetFirstName() string {
 	return u.firstName
 }
@@ -41,7 +47,15 @@ func (u User) GetAge() int {
 	return u.age
 }
 
+func (u User) GetPassword() string {
+	return u.password
+}
+
 // Setters
+func (u *User) SetId(id int) {
+	u.id = id
+}
+
 func (u *User) SetFirstName(firstName string) {
 	u.firstName = firstName
 }
@@ -60,4 +74,8 @@ func (u *User) SetEmail(email string) {
 
 func (u *User) SetAge(age int) {
 	u.age = age
+}
+
+func (u *User) SetPassword(password string) {
+	u.password = password
 }

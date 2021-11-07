@@ -2,35 +2,52 @@ package services
 
 import (
 	. "github.com/denis-onder/archibald/builders"
-	. "github.com/denis-onder/archibald/db"
 	. "github.com/denis-onder/archibald/domain"
 	. "github.com/denis-onder/archibald/validators"
 )
 
 type UserServiceType struct {
-	CreateUser func(firstName, lastName, email string, age int) (error, User)
-	GetUser    func(id int) (error, User)
+	CreateUser func(firstName, lastName, email string, password string) (User, error)
+	GetUser    func(id int) (User, error)
 	UpdateUser func(id int, updateUserObject User) bool
 	DeleteUser func(id int) bool
 }
 
-func CreateUser(firstName, lastName, email string, age int) (error, User) {
-	user := UserBuilder(firstName, lastName, email, age)
+func CreateUser(firstName, lastName, email string, password string) (User, error) {
+	user := UserBuilder(firstName, lastName, email, password)
 	isValid := ValidateUser(user)
 
 	// TODO: Insert the user in the database if valid
 
-	if isValid == nil {
-		statement := `INSERT INTO users ("firstName", "lastName", "email", "age") VALUES ($1, $2, $3, $4)`
+	if isValid != nil {
+		// Handle error
 	}
 
-	return isValid, user
+	statement := `INSERT INTO users ("firstName", "lastName", "email", "password") VALUES ($1, $2, $3, $4)`
+
+	res, err := Database.Exec(statement, firstName, lastName, email, password)
+
+	if err != nil {
+		// handle error
+	}
+
+	// extract the user from the result
+
+	return res, isValid
 }
 
-func GetUser(id int) (error, User) {
+func GetUser(id int) (User, error) {
+	statement := `SELECT * FROM users WHERE id='$1'`
+
 	// Database query
-	// If no user found return error
+	res, err := Database.Exec(statement, id)
+
+	if err != nil {
+		// handle error
+	}
+
 	// Return user
+	return res, err
 }
 
 func UpdateUser(id int, updateUserObject User) bool {
@@ -38,13 +55,18 @@ func UpdateUser(id int, updateUserObject User) bool {
 	// If no user found return error
 	// Validate user with modified data
 	// If validation error, return error
-	// Return user
+	return false
 }
 
 func DeleteUser(id int) bool {
-	// Database query
-	// If no user found return false
-	// Return true
+	statement := `DELETE FROM users WHERE id='$1'`
+	_, err := Database.Exec(statement, id)
+
+	if err != nil {
+		return false
+	}
+
+	return true
 }
 
 var UserService UserServiceType = UserServiceType{
